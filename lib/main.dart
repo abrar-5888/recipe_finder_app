@@ -1,9 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:new_app/app/modules/bottom_bar/bottom_bar_view.dart';
+import 'package:new_app/data/model/recipe_model.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Hive.initFlutter();
+
+  Hive.registerAdapter(RecipeModelAdapter());
+
+  await Hive.openBox<RecipeModel>('recipes');
   runApp(const MyApp());
 }
 

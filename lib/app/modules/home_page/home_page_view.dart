@@ -3,7 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:new_app/app/components/recipe_component.dart';
+import 'package:new_app/app/modules/bottom_bar/bottom_bar_controller.dart';
 import 'package:new_app/app/modules/home_page/home_page_controller.dart';
+import 'package:new_app/app/modules/reciepe_detail/reciepe_detail_view.dart';
 import 'package:new_app/configs/images.dart';
 import 'package:new_app/data/model/recipe_model.dart';
 
@@ -13,7 +15,7 @@ class HomePageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HomePageController>(
-      init: HomePageController(),
+      init: Get.put(HomePageController()),
       builder: (logic) {
         return Obx(() => logic.isLoading.value
             ? const Center(
@@ -138,7 +140,11 @@ class HomePageView extends StatelessWidget {
                                       style: GoogleFonts.poppins(fontSize: 16.sp, fontWeight: FontWeight.bold),
                                     ),
                                     InkWell(
-                                      onTap: () {},
+                                      onTap: () {
+                                        // Get.to(() => const AllReciepiesView());
+                                        Get.find<BottomBarController>().bottomBarIndex.value = 1;
+                                        Get.find<BottomBarController>().update();
+                                      },
                                       child: Text(
                                         "See all",
                                         style: GoogleFonts.poppins(fontSize: 16.sp, fontWeight: FontWeight.w600, color: Colors.orange.shade400),
@@ -162,7 +168,14 @@ class HomePageView extends StatelessWidget {
                                           itemBuilder: (context, index) {
                                             RecipeModel recipe = logic.recipes[index];
 
-                                            return RecipeComponent(recipe: recipe);
+                                            return GestureDetector(
+                                                onTap: () {
+                                                  Get.to(() => ReciepeDetailView(
+                                                        recipe: recipe,
+                                                        isFvrt: false,
+                                                      ));
+                                                },
+                                                child: RecipeComponent(recipe: recipe));
                                           },
                                         ))
                                   ],

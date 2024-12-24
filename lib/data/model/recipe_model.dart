@@ -1,19 +1,55 @@
+import 'package:hive/hive.dart';
+
+part 'recipe_model.g.dart';
+
+@HiveType(typeId: 0) 
 class RecipeModel {
+  @HiveField(0)
   final int id;
+
+  @HiveField(1)
   final String name;
+
+  @HiveField(2)
   final List<String> ingredients;
+
+  @HiveField(3)
   final List<String> instructions;
+
+  @HiveField(4)
   final int prepTimeMinutes;
+
+  @HiveField(5)
   final int cookTimeMinutes;
+
+  @HiveField(6)
   final int servings;
+
+  @HiveField(7)
   final String difficulty;
+
+  @HiveField(8)
   final String cuisine;
+
+  @HiveField(9)
   final int caloriesPerServing;
+
+  @HiveField(10)
   final List<String> tags;
+
+  @HiveField(11)
   final int userId;
+
+  @HiveField(12)
   final String image;
+
+  @HiveField(13)
   final double rating;
+
+  @HiveField(14)
   final int reviewCount;
+
+  @HiveField(15)
   final List<String> mealType;
 
   RecipeModel({
